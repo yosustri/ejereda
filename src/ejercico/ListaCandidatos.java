@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ListaCandidatos {
 	
-	private static ListaCandidatos listaCandidatos = new ListaCandidatos();
+	
 	
 	ArrayList<Candidato> candidatos;
 	
@@ -12,16 +12,20 @@ public class ListaCandidatos {
 	
 	//Saber a que partido es cada candidato
 	//Buscar un candidato concreto
-
-    public static ListaCandidatos getInstance() {
-        return listaCandidatos;
-    }
     
     public void agregarCandidato(){
     	
     }
     
-    public void eliminarCandidato(Candidato candidato){
+    public ArrayList<Candidato> getCandidatos() {
+		return candidatos;
+	}
+
+	public void setCandidatos(ArrayList<Candidato> candidatos) {
+		this.candidatos = candidatos;
+	}
+
+	public void eliminarCandidato(Candidato candidato){
     	
     }
     
