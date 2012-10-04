@@ -1,76 +1,87 @@
 package ejercico;
 
 import java.util.ArrayList;
+//import java.util.Iterator;
 
 public class ListaCandidatos {
-	
-	private ArrayList<Candidato> candidatos;
-	private static ListaCandidatos miLista=new ListaCandidatos();
-	private ListaCandidatos(){
-		this.candidatos=new ArrayList<Candidato>();
-	}
-	public static ListaCandidatos getListaCandidatos()
-{
-	return miLista;
+
+private ArrayList<Candidato> candidatos;
+private static ListaCandidatos miLista=new ListaCandidatos();
+private ListaCandidatos(){
+this.candidatos=new ArrayList<Candidato>();
 }
-private ArrayList<Candidatos> getLista() {
-	return candidatos;
+public static ListaCandidatos getListaCandidatos()
+{
+return miLista;
+}
+private ArrayList<Candidato> getLista() {
+return candidatos;
 }
 public int getTamano()
 {
-	return ListaCandidatos.getListaCandidatos().getLista().size();
+return ListaCandidatos.getListaCandidatos().getLista().size();
 }
-private Iterator<Libro> getIterador()
+/*private Iterator<Candidato> getIterador()
 {
-	return ListaCandidatos.getListaCandidatos().getLista().iterator();
-}
-public Candidato buscarCandidato(Candidato pCandidato)
+return ListaCandidatos.getListaCandidatos().getLista().iterator();
+}*/
+public int  buscarCandidato(Candidato pCandidato)
 {
-	Candidato unCandidato;
-	iterador<candidato> it=getIterador();
-	boolean enc=false;
-	while (!enc && it.hasNext())
-	   {  
-		unCandidato = it.next(); 
-		//if (unCandidato.getApellido()<)
-		   if (unCandidato.getNombre() == pCandidato.getNombre()&& unCandidato.getApellido()==pCAndidato.getApellidoI())
-		    {
-			   enc = true;	 
-	        }
-	   }
-	   if (enc)
-	   {
-		   return unCandidato;
-	   }
-	   else
-	   {
-		   return null;
-	   }
-   }
-}
-	//Saber a que partido es cada candidato
-	//Buscar un candidato concreto
-    
-    public void agregarCandidato(Candidato pCandidato){
-    	//this.ordenar();
-    	if(buscarCandidato(pCandidato)==null)
-    	{
-    		ListaCandidatos.getListaCandidatos().getLista().add(pCandidato);
-    	}
-    }
-    
-   /* public ArrayList<Candidato> getCandidatos() {
-		return candidatos;
-	}*/
-
-	public void setCandidatos(ArrayList<Candidato> candidatos) {
-		this.candidatos = candidatos;
+	//busca segun el apellido
+	
+Candidato unCandidato;
+int min,mitad,max;
+//Iterator<Candidato> it=getIterador();
+boolean enc=false;
+min=0;
+max=this.getTamano()-1;
+mitad=(int)(max+min)/2;   	//Redondea a lo bajo
+unCandidato=this.getLista().get(mitad);
+while (!enc)
+{
+	if(unCandidato==pCandidato)
+	{
+		enc=true;
+		return mitad;
 	}
+	if(unCandidato.getApellido().compareTo(pCandidato.getApellido())<0 &&!enc)
+	{
+		min=mitad+1;
+	}
+	else
+	{
+		max=mitad-1;
+	}
+	mitad=(int)(max+min)/2;
+	unCandidato=this.getLista().get(mitad);
+	if(min>max)
+	{
+		return mitad+1;
+	}
+}
+return -1;
+}
 
-	public void eliminarCandidato(Candidato candidato){
-    	
+//Saber a que partido es cada candidato
+    
+    public void agregarCandidato(Candidato pCandidato){//Ordenadamente
+    this.getListaCandidatos().getLista().add(this.buscarCandidato(pCandidato),pCandidato);
+     System.out.println("añadido");
+     
     }
     
-    public void busquedaCandidato(){}
+public void eliminarCandidato(Candidato pCandidato){
+	int indice=this.buscarCandidato(pCandidato);
+    if(this.getLista().get(indice)!=pCandidato)
+    {
+    	System.out.println("No existe ese candidato");
+    }
+    else
+    {
+    ListaCandidatos.getListaCandidatos().getLista().remove(indice);	
+    }
+    }
+   
     
 }
+
